@@ -7,12 +7,15 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>{{ articulo.nombre_articulo }}</h1>
-    <hr>
-    <p>{{ articulo.resumen }}</p>
-    <p>{{ articulo.contenido }}</p>
-    <br><hr>
     
+    {% if msj_error %}
+        <p>{{ msj_error }}</p>
+    {% else %}
+        {{articulo.nombre_articulo}}
+        {{articulo.resumen}}
+        {{articulo.contenido}}
+    {% endif %}
+   
     {% for categoria in categorias %}
         <p>{{ categoria.nombre_categoria }}</p>
     {% endfor %}

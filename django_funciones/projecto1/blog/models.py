@@ -17,6 +17,7 @@ class Articulos(models.Model):
     nombre_articulo = models.CharField("Nombre artículo", max_length=100, null=False, blank=False)
     resumen = models.CharField("Descripción artículo", max_length=150, null=False, blank=False)
     contenido = models.TextField("Contenido", null=False, blank=False)
+    slug = models.SlugField("Slug", max_length=100, unique=True, null=True, blank=True)
     categorias = models.ForeignKey(Categorias, on_delete=models.CASCADE)
     publico = models.BooleanField(default=True)
     fecha_creacion = models.DateTimeField("Fecha de publicación", auto_now_add=True)

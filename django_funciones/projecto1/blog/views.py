@@ -6,7 +6,10 @@ from .models import Articulos
 
 # Create your views here.
 def index(request):
-    articulos = Articulos.objects.all()
+    articulos = Articulos.objects.filter(
+        publico = True
+    )
+    
     context = {
         'articulos': articulos
     }
@@ -15,12 +18,21 @@ def index(request):
 
 def obtener_articulos_por_categorias(request, categoria):
     articulos = Articulos.objects.filter(
+        publico = True,
         categorias__nombre_categoria = categoria
     )
     
     return render(request, "articulos_categoria.html", {'articulos': articulos})
 
 
-def detalle_articulo(request, pk):
-    articulo = Articulos.objects.get(id=pk)
-    return render(request, "detalle.html", {'articulo': articulo})
+def detalle_articulo(request, slug):
+    context = {}
+    try:
+        articulo = Articulos.objects.get(slug=slug)
+        if articulo is not None:
+            context['articulo'] = articulo
+            return render(request, "detalle.html", context)
+        
+    except Articulos.DoesNotExist:
+        context['msj_error'] = "Articulo no encontrado"
+        return render(request, "detalle.html", context)
