@@ -1,24 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
+{% extends 'base.html' %}
+{% load tailwind_tags %}
+{% load static %}
+
+{% block title %}
+    {{ articulo.nombre_articulo }}
+{% endblock title %}
+
+{% block name_hero %}
+    <p class="text-5xl text-center text-white w-2/6">{{ articulo.nombre_articulo }}</p> 
+{% endblock name_hero %}
+
+
+{% block content %}
     {% if msj_error %}
         <p>{{ msj_error }}</p>
     {% else %}
-        {{articulo.nombre_articulo}}
-        {{articulo.resumen}}
-        {{articulo.contenido}}
+        <div>
+            <p 
+                class="text-5xl mb-8" 
+                style="font-family: 'Open Sans', sans-serif;">
+                <strong>{{ articulo.nombre_articulo }}</strong>
+            </p>
+            <p class="text-3xl mb-4"><span>{{ articulo.resumen }}</span></p>
+            <p class="text-2xl mb-4"><span>{{ articulo.contenido }}</span></p>
+            <hr class="mb-14">    
+        </div>
     {% endif %}
-   
-    {% for categoria in categorias %}
-        <p>{{ categoria.nombre_categoria }}</p>
-    {% endfor %}
-        
-</body>
-</html>
+{% endblock content %}

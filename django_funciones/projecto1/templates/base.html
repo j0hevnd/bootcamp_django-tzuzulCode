@@ -1,0 +1,88 @@
+{% load tailwind_tags %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% tailwind_css %}
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo&family=Open+Sans&family=Titillium+Web:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Nav -->
+    {% include 'generales/nav.html' %}
+
+    <!-- Hero -->
+    <div 
+        class="relative h-96 bg-fixed" 
+        style="background-image: url({% static 'img/about-bg.jpg'%})"
+    >
+        <div class="w-full h-full bg-gray-800 top-0 left-0 absolute opacity-40"></div>
+        <div class="absolute w-full h-full flex flex-col top-0 letf-0 justify-center items-center">
+            {% block name_hero %}
+            {% endblock name_hero %}      
+        </div>
+    </div>
+
+    <div class="container mx-auto">
+        <!-- Contenido principal -->
+        <main class="mt-32">
+            <div class="grid gap grid-cols-4">
+                <div class="col-span-3"> <!--...-->
+                    {% block content %}
+                    {% endblock content %}
+                </div>
+        
+                <div>
+                    <div style="border-left: 2px solid rgb(157,157,163);">
+                        <div class="ml-4 font-mono">
+                            <p class="mb-8">Categorías: </p>
+                            
+                            {% for categoria in categorias %}
+                                <div class="mb-3">
+                                    <a href="#" class="hover:text-sky-400">{{ categoria.nombre_categoria }}</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="ml-4 mt-24 pb-16">
+                            <form action="" method="GET">
+                                <div class="flex flex-col justify-end">
+                                    <input 
+                                        type="text"
+                                        class="form-input px-x py-3 rounded-lg block mb-4 border-gray-300"
+                                        name="buscar"
+                                        placeholder="Buscar artículo..."
+                                    >
+                                    <div>
+                                        <button 
+                                            type="submit"
+                                            class="text-white py-2 px-4 rounded-full bg-cyan-500 hover:bg-cyan-300 font-semibold"
+                                        >
+                                        Buscar
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div> <!-- Formulario -->
+                    </div>
+                </div> <!-- Categorias -->
+            </div> <!-- Clase grid-->
+        </main>
+    </div>
+
+    <!--Footer-->
+    {% include 'generales/footer.html' %}
+
+</body>
+</html>
