@@ -37,7 +37,7 @@
     <div class="container mx-auto">
         <!-- Contenido principal -->
         <main class="mt-32">
-            <div class="grid gap grid-cols-4">
+            <div class="grid gap-4 grid-cols-4">
                 <div class="col-span-3"> <!--...-->
                     {% block content %}
                     {% endblock content %}
@@ -50,7 +50,7 @@
                             
                             {% for categoria in categorias %}
                                 <div class="mb-3">
-                                    <a href="#" class="hover:text-sky-400">{{ categoria.nombre_categoria }}</a>
+                                    <a href="{% url 'app_blog:categoria' categoria.nombre_categoria %}" class="hover:text-sky-400">- {{ categoria.nombre_categoria }}</a>
                                 </div>
                             {% endfor %}
                         </div>

@@ -12,11 +12,11 @@
 
 
 {% block content %}
-    {% if msj_error %}
-        <p>{{ msj_error }}</p>
+    {% if msj_error %} <!--...-->
+        <p class="text-5xl text-lime-600 text-center border p-8 mt-24">{{ msj_error }}</p>
     {% else %}
         <div>
-            <p 
+            <p
                 class="text-5xl mb-8" 
                 style="font-family: 'Open Sans', sans-serif;">
                 <strong>{{ articulo.nombre_articulo }}</strong>
