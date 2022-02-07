@@ -1,5 +1,8 @@
 from django.db import models
 
+# Usuarios
+from django.contrib.auth.models import User
+
 # Create your models here.
 
 class Categorias(models.Model):
@@ -30,3 +33,17 @@ class Articulos(models.Model):
     def __str__(self):
         return self.nombre_articulo
     
+    
+class Comentario(models.Model):
+    articulo_comentado = models.ForeignKey(Articulos, on_delete=models.CASCADE, related_name='comentarios')
+    comentario = models.TextField("Comentarios", max_length=500, null=False, blank=False)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    creado = models.DateTimeField("Fecha de creación", auto_now=True)
+    editado = models.DateTimeField("Fecha edición", auto_now_add=True)
+    
+    class Meta:
+        verbose_name = "Comentarios"
+        verbose_name_plural = "Comentarios"
+        
+    def __str__(self):
+        return self.articulo_comentado.nombre_articulo

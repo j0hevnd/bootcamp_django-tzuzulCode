@@ -7,23 +7,46 @@ from .models import Articulos, Categorias
 
 # Create your views here.
 
+
+def consulta_busqueda(argumento_busqueda, categoria):
+    if categoria is not None:
+        consulta = Articulos.objects.filter(
+            Q(nombre_articulo__icontains=argumento_busqueda) |
+            Q(resumen__icontains=argumento_busqueda),
+            publico = True,
+            categorias__nombre_categoria = categoria,
+        ) 
+    
+    else:
+        consulta = Articulos.objects.filter(
+            Q(nombre_articulo__icontains=argumento_busqueda) |
+            Q(resumen__icontains=argumento_busqueda),
+            publico = True
+        ) 
+
+    if consulta is not None:
+        return consulta
+        
+    return False
+    
 def busqueda(request, context):
     
+    obtener_categoria = None
     busqueda = request.GET.get('buscar')
-    consulta = Articulos.objects.filter(
-        Q(nombre_articulo__icontains=busqueda) |
-        Q(resumen__icontains=busqueda),
-        publico = True
-    ) 
-
-    if consulta:
-        context['articulos'] = consulta
+    
+    if len(request.path.split("/")) > 2:
+        obtener_categoria = request.path.split("/")[2]
+    
+    articulos_encontrados = consulta_busqueda(busqueda, obtener_categoria)
+    
+    if articulos_encontrados:
+        context['articulos'] = articulos_encontrados
         return context
 
     else:
         context['msj_no_encontrado'] = "No se encontraron coincidencias con \"%s\" " % busqueda
     
-    return False
+    return context
 
 
 def index(request):
