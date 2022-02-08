@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load tailwind_tags %}
+{% load static %}
+
+
+{% block title %}
+    Iniciar sesión
+{% endblock title %}
+
+
+{% block name_hero %}
+    <p class="text-5xl text-center text-white w-2/6" style="font-family: 'Exo', sans-serif;">
+        Diviertete en nuestra página
+    </p>
+{% endblock name_hero %}
+
+
+
+{% block content %}
+    <div class="col-span-3">
+        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+            <div 
+                class="bg-white py-8 px-6 drop-shadow-2xl rounded-lg sm:px-10 items-center content-center"
+            >
+                <p class="text-3xl mt-1 mb-3 text-center">Iniciar sesión</p>
+                <hr class="mb-8">
+
+                
+                {% if msj_error %}
+                    <p class="text-sm text-red-600 mt-2 mb-2 text-center">{{ msj_error }}</p>
+                {% endif %}
+                    
+                <form action="" class="mb-0 space-y-6" method="POST">
+                    {% csrf_token %}
+                    <div>
+                        <label for="username" class="block text-sm font-medium">Nombre de usuario</label>
+                        <div class="mt-1">
+                            <input 
+                                type="text" 
+                                class="w-full border-gray-300 rounded-lg drop-shadow-md"
+                                name ="username"
+                                id="username"
+                                placeholder="Nombre de usuario"
+                                required
+                            >
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="password" class="block text-sm font-medium">Contraseña</label>
+                        <div class="mt-1">
+                            <input 
+                                type="password" 
+                                class="w-full border-gray-300 rounded-lg drop-shadow-md"
+                                name ="password"
+                                id="password"
+                                placeholder="Contraseña"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div>
+                        <a href="#" class="text-xs text-sky-600 hover:underline">No tengo una cuenta</a>
+                    </div>
+
+                    <div class="flex justify-center">
+                        <button 
+                            type="submit" 
+                            class="text-white px-4 py-2 rounder-lg font-semibold bg-cyan-500 hover: bg-cyan-300">
+                            Ingresar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+    

@@ -54,4 +54,34 @@
             </div>
         </div>
     </div>
+
+    <div class="container mx-auto mt-24">
+        <p class="text-3xl text-gray-700">Comentarios: </p>
+
+        <div class="flex flex-col justify-center items-center mt-8">
+            
+            {% for comentario in comentarios %}
+                <div class="w-10/12 border p-8 mt-4">
+                    <div class="w-full flex justify-between text-gray-700">
+                        <p class="block.text-m font-medium text-gray">
+                            Comentario por: {{comentario.usuario}} <br>
+                            <small class="text-gray-400">
+                                {{ comentario.creado|date:"F j, Y" }}
+                            </small>
+                        </p>
+
+                        <span class="block text-m font-medium text-gray-700">
+                            <a href="#">Editar</a>
+                            <a href="#">Eliminar</a>
+                        </span>
+                    </div>
+                    {{comentario.comentario}}
+                </div>
+                               
+            {% empty %}
+                <p class="text-3xl text-cyan-700 boder p-8 mt-8">...{{ no_comentarios }}...</p>
+            {% endfor %}
+                
+        </div>
+    </div>
 {% endblock content %}

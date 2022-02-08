@@ -3,8 +3,14 @@
         <a href="{% url 'app_blog:inicio' %}"class="text-green-500">Django App <span class="text-white">| Blog</span></a>
     </div>
     <div>
-        <a href="{% url 'app_blog:inicio' %}" class="mr-8 text-white py-2 px-2 hover:text-slate-400">Inicio</a>
-        <a href="#" 
-        class="text-white py-2 px-4 rounded border border-lime-600 hover:bg-lime-600">Iniciar Sesión</a>
+        <a href="{% url 'app_blog:inicio' %}" 
+        class="mr-8 text-white py-2 px-2 hover:text-slate-400">Inicio</a>
+        {% if not user.is_authenticated %}
+            <a href="{% url 'app_usuarios:iniciar_sesion' %}" 
+            class="text-white py-2 px-4 rounded border border-lime-600 hover:bg-lime-600">Iniciar Sesión</a>
+        {% else %}
+            <a href="{% url 'app_usuarios:cerrar_sesion' %}" 
+            class="text-white py-2 px-4 rounded border border-lime-600 hover:bg-lime-600">Cerrar Sesión</a>
+        {% endif %}
     </div>
 </nav>

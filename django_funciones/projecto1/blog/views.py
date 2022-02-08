@@ -96,9 +96,15 @@ def detalle_articulo(request, slug):
     context = {}
     try:
         articulo = Articulos.objects.get(slug=slug)
-        if articulo is not None:
-            context['articulo'] = articulo
-            return render(request, "detalle.html", context)
+        comentarios = articulo.comentarios.all()
+        context['articulo'] = articulo
+        
+        if comentarios: context['comentarios'] = comentarios
+        else: context['no_comentarios'] = "¡Sé el primero en comentar!"
+        
+        
+        
+        return render(request, "detalle.html", context)
         
     except Articulos.DoesNotExist:
         context['msj_error'] = "Artículo no encontrado"
