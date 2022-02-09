@@ -26,11 +26,13 @@
             <hr class="mb-14">    
         </div>
     {% endif %}
+{% endblock content %}
 
 
+{% block formulario_comentarios %}
     <div class="container mx-auto mt-24">
         <div class="flex flex-col justify-center items-center">
-            <p class="text-3xl">¿Qué te parecio el artículo<br>¡¡Dejanos un comentario!!</p>
+            <p class="text-3xl">¿Qué te parecio el artículo?<br>¡¡Dejanos un comentario!!</p>
             
             <div class="mt-4">
                 <form action="" method="POST" >
@@ -40,48 +42,64 @@
                         name="comentario" id="" cols="70" rows="7"
                         placeholder="Comentario..." 
                         required
-                    ></textarea>
+                    >{% if comentario %}{{ comentario }}{% endif %}</textarea>
 
                     <div class="w-full flex justify-end">
                         <button 
                             type="submit"
                             class="text-white py-2 px-4 w-40 rounded-full bg-cyan-500
                             hover:bg-cyan-300 font-semibold">
-                            Publicar
+                            {% if 'editar' in path %}
+                                Actualizar
+                            {% else %}
+                                Publicar
+                            {% endif %}
                         </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+{% endblock formulario_comentarios %}
 
+
+{% block caja_comentarios %}
     <div class="container mx-auto mt-24">
         <p class="text-3xl text-gray-700">Comentarios: </p>
-
         <div class="flex flex-col justify-center items-center mt-8">
             
             {% for comentario in comentarios %}
                 <div class="w-10/12 border p-8 mt-4">
                     <div class="w-full flex justify-between text-gray-700">
-                        <p class="block.text-m font-medium text-gray">
+                        <p class="block text-m font-medium text-gray">
                             Comentario por: {{comentario.usuario}} <br>
                             <small class="text-gray-400">
                                 {{ comentario.creado|date:"F j, Y" }}
                             </small>
                         </p>
-
-                        <span class="block text-m font-medium text-gray-700">
-                            <a href="#">Editar</a>
-                            <a href="#">Eliminar</a>
-                        </span>
+                        
+                        {% if user.is_authenticated and comentario.usuario == user %}
+                            <span class="block text-m font-medium text-gray-700">
+                                <a
+                                    class="p-4 hover:text-cyan-500"
+                                    href="{% url 'app_blog:detalle' articulo.slug %}?editar={{ comentario.id }}">
+                                    Editar
+                                </a>
+                                <a 
+                                    class="p-4 hover:text-red-500"
+                                    href="{% url 'app_blog:detalle' articulo.slug %}?eliminar={{ comentario.id }}">
+                                    Eliminar
+                                </a>
+                            </span>
+                        {% endif %}
                     </div>
+
                     {{comentario.comentario}}
                 </div>
-                               
+                            
             {% empty %}
                 <p class="text-3xl text-cyan-700 boder p-8 mt-8">...{{ no_comentarios }}...</p>
             {% endfor %}
-                
         </div>
     </div>
-{% endblock content %}
+{% endblock caja_comentarios %}

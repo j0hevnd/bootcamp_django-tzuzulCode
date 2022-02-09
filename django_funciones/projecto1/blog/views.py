@@ -1,9 +1,9 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect, render
 from django.db.models import Q
 
 # models
-from .models import Articulos, Categorias
+from .models import Articulos, Categorias, Comentario
 
 # Create your views here.
 
@@ -87,7 +87,7 @@ def obtener_articulos_por_categorias(request, categoria):
         context['no_datos'] = "Pronto agregaremos contenido! :)"
         
     except Categorias.DoesNotExist:
-        context['msj_error'] = "Esta categoría no existe"
+        context['contenido_404'] = "Esta categoría no existe"
 
     return render (request, "articulos_categoria.html", context)
 
@@ -102,10 +102,39 @@ def detalle_articulo(request, slug):
         if comentarios: context['comentarios'] = comentarios
         else: context['no_comentarios'] = "¡Sé el primero en comentar!"
         
+        comentario = None
+        if request.GET.get("editar") and request.user.is_authenticated:
+            comentario = comentarios.get(id=request.GET.get("editar"))
+            context['comentario'] = comentario.comentario
+            context['path'] = request.get_full_path
         
-        
-        return render(request, "detalle.html", context)
-        
+        if request.method == 'POST':
+            if not request.user.is_authenticated:
+               return redirect('app_usuarios:iniciar_sesion') 
+
+            comentario_nuevo = request.POST.get("comentario").strip()
+            
+            if comentario_nuevo and not comentario:
+                try:
+                    Comentario.objects.create(
+                        comentario = comentario_nuevo,
+                        articulo_comentado = articulo,
+                        usuario = request.user
+                    )
+                except Exception as e:
+                    raise Http404(f"Hubo un error debido a.... {e}")
+
+                return HttpResponseRedirect(request.path)
+            
+            elif comentario_nuevo and comentario:
+                comentario.comentario = comentario_nuevo
+                comentario.save()
+                
+            else:
+                context['comentario_error'] = "El comentario no puede ir vacio"
+                
+                
     except Articulos.DoesNotExist:
         context['msj_error'] = "Artículo no encontrado"
-        return render(request, "detalle.html", context)
+    
+    return render(request, "detalle.html", context)

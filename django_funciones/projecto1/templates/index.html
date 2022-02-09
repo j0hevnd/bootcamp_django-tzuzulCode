@@ -13,24 +13,5 @@
 {% endblock name_hero %}
     
 {% block content %}
-    {% if msj_no_encontrado %} <!--.....-->
-        <p class="text-3xl text-red-700">{{ msj_no_encontrado }}</p>
-        <hr class="w-72 bold mb-14">
-    {% endif %}
-        
-    {% for articulo in articulos %}
-        <div>
-            <a href="{% url 'app_blog:detalle' articulo.slug %}" class="hover:text-cyan-500"> 
-                <p 
-                    class="text-5xl mb-8" 
-                    style="font-family: 'Open Sans', sans-serif;">
-                    <strong>{{ articulo.nombre_articulo }}</strong>
-                </p>
-            </a>
-            <p class="text-3xl mb-4"><span>{{ articulo.resumen }}</span></p>
-            <p class="text-2xl mb-4 truncate ..."><span>{{ articulo.contenido }}</span></p>
-            <hr class="mb-14">    
-        </div>
-    {% endfor %}
+   {% include 'generales/articulos_generales.html' %}
 {% endblock content %}
-    
