@@ -60,13 +60,16 @@
                     </div>
 
                     <div>
-                        <a href="#" class="text-xs text-sky-600 hover:underline">No tengo una cuenta</a>
+                        <a href="{% url 'app_usuarios:registrarse' %}" 
+                            class="text-xs text-sky-600 hover:underline">
+                            No tengo una cuenta
+                        </a>
                     </div>
 
                     <div class="flex justify-center">
                         <button 
                             type="submit" 
-                            class="text-white px-4 py-2 rounder-lg font-semibold bg-cyan-500 hover: bg-cyan-300">
+                            class="text-white px-4 py-2 rounded-lg font-semibold bg-cyan-500 hover:bg-cyan-300">
                             Ingresar
                         </button>
                     </div>

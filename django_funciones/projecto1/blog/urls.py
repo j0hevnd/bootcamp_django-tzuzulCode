@@ -20,4 +20,9 @@ urlpatterns = [
         views.obtener_articulos_por_categorias, 
         name="categoria"
     ),
+    path(
+        'eliminar-comentario/<slug:slug>/', 
+        views.eliminar_comentario, 
+        name="eliminar_comentario"
+    ),
 ]

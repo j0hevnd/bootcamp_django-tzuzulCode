@@ -1,4 +1,5 @@
 from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import redirect, render
 from django.db.models import Q
 
@@ -132,9 +133,29 @@ def detalle_articulo(request, slug):
                 
             else:
                 context['comentario_error'] = "El comentario no puede ir vacio"
-                
-                
+            
+            if not context.get('comentario_error'):
+                return HttpResponseRedirect(request.path)
+            
     except Articulos.DoesNotExist:
         context['msj_error'] = "Artículo no encontrado"
     
     return render(request, "detalle.html", context)
+
+
+def eliminar_comentario(request, slug):
+    try:
+        articulo = Articulos.objects.get(slug=slug)
+        
+        comentario = None
+        if request.GET.get('eliminar') and request.user == comentario.usuario:
+            comentario = articulo.comentarios.get(id=request.GET.get('eliminar'))
+            comentario.delete()
+            
+    except Comentario.DoesNotExist as e:
+        return Http404(f"El comentario no fue encontrado")
+        
+    except Exception as e:
+        return Http404(f"Hubo un error por.... {e}")
+    
+    return HttpResponseRedirect( reverse('app_blog:detalle', args=(articulo.slug,)) )

@@ -1,6 +1,31 @@
+from audioop import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
+
+from .forms import FormularioRegistro
 # Create your views here.
+
+
+def regitrar_usuario(request):
+    if request.user.is_authenticated:
+        return redirect('app_blog:inicio')
+    
+    if request.method == 'POST':
+        formulario_registro = FormularioRegistro(request.POST)
+
+        if formulario_registro.is_valid():
+            formulario_registro.save()
+            return HttpResponseRedirect( reverse("app_usuarios:iniciar_sesion"))
+        
+    else:
+        formulario_registro = FormularioRegistro()
+        
+    context = {
+        'formulario': formulario_registro
+    }
+    
+    return render(request, "usuarios/registro.html", context)
 
 
 def login_view(request):

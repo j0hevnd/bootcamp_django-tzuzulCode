@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load tailwind_tags %}
+{% load static %}
+
+
+{% block title %}
+    Registrarse
+{% endblock title %}
+
+
+{% block name_hero %}
+    <p class="text-5xl text-center text-white w-2/6" style="font-family: 'Exo', sans-serif;">
+        Diviertete en nuestra página
+    </p>
+{% endblock name_hero %}
+
+
+{% block content %}
+    {{ formulario.as_p }}
+{% endblock content %}
