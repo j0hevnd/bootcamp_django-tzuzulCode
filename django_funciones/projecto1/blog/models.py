@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 from django.db import models
 
 # Usuarios
@@ -7,7 +8,9 @@ from django.contrib.auth.models import User
 
 class Categorias(models.Model):
     nombre_categoria = models.CharField("Nombre categoría", max_length=100, null=False, blank=False)
-
+    portada = models.ImageField("Portada de categoría", null=True, blank=True,
+                                upload_to="categorias")
+    
     class Meta:
         verbose_name="Categoria"
         verbose_name_plural="Categorias"
@@ -20,6 +23,8 @@ class Articulos(models.Model):
     nombre_articulo = models.CharField("Nombre artículo", max_length=100, null=False, blank=False)
     resumen = models.CharField("Descripción artículo", max_length=150, null=False, blank=False)
     contenido = models.TextField("Contenido", null=False, blank=False)
+    portada = models.ImageField("Portada de articulo", null=True, blank=True,
+                                upload_to="articulos")
     slug = models.SlugField("Slug", max_length=100, unique=True, null=True, blank=True)
     categorias = models.ForeignKey(Categorias, on_delete=models.CASCADE)
     publico = models.BooleanField(default=True)
@@ -40,6 +45,7 @@ class Comentario(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     creado = models.DateTimeField("Fecha de creación", auto_now=True)
     editado = models.DateTimeField("Fecha edición", auto_now_add=True)
+    publico = models.BooleanField(default=True)
     
     class Meta:
         verbose_name = "Comentarios"

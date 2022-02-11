@@ -148,14 +148,16 @@ def eliminar_comentario(request, slug):
         articulo = Articulos.objects.get(slug=slug)
         
         comentario = None
-        if request.GET.get('eliminar') and request.user == comentario.usuario:
-            comentario = articulo.comentarios.get(id=request.GET.get('eliminar'))
-            comentario.delete()
+        if request.GET.get('eliminar'):
+            comentario = articulo.comentarios.get(id=request.GET.get('eliminar'))            
+            if request.user == comentario.usuario:
+                comentario.delete()
             
     except Comentario.DoesNotExist as e:
         return Http404(f"El comentario no fue encontrado")
         
     except Exception as e:
+        print(f"Hubo un error por.... {e}")
         return Http404(f"Hubo un error por.... {e}")
     
     return HttpResponseRedirect( reverse('app_blog:detalle', args=(articulo.slug,)) )

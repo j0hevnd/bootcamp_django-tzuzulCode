@@ -16,7 +16,7 @@ def regitrar_usuario(request):
 
         if formulario_registro.is_valid():
             formulario_registro.save()
-            return HttpResponseRedirect( reverse("app_usuarios:iniciar_sesion"))
+            return redirect("app_usuarios:iniciar_sesion")
         
     else:
         formulario_registro = FormularioRegistro()

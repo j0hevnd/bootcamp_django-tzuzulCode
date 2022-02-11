@@ -6,6 +6,10 @@
     {{ articulo.nombre_articulo }}
 {% endblock title %}
 
+{% block hero %}
+    {{ articulo.portada.url }}
+{% endblock hero %}
+
 {% block name_hero %}
     <p class="text-5xl text-center text-white w-2/6">{{ articulo.nombre_articulo }}</p> 
 {% endblock name_hero %}

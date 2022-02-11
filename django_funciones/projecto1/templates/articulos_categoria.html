@@ -7,6 +7,10 @@
     {{ categoria.nombre_categoria }}
 {% endblock title %}
 
+{% block hero %}
+    {{ categoria.portada.url }}
+{% endblock hero %}
+
 
 {% block name_hero %}
     <p class="text-5xl text-center text-white w-2/6">{{ categoria.nombre_categoria }}</p> 

@@ -24,8 +24,8 @@
 
     <!-- Hero -->
     <div 
-        class="relative h-96 bg-fixed" 
-        style="background-image: url({% static 'img/about-bg.jpg'%})"
+        class="relative h-96 bg-fixed bg-no-repeat bg-cover" 
+        style="background-image: url({% block hero %}{% static 'img/about-bg.jpg'%}{% endblock hero %})"
     >
         <div class="w-full h-full bg-gray-800 top-0 left-0 absolute opacity-40"></div>
         <div class="absolute w-full h-full flex flex-col top-0 letf-0 justify-center items-center">

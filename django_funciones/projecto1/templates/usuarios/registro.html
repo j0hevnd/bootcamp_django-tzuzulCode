@@ -10,11 +10,120 @@
 
 {% block name_hero %}
     <p class="text-5xl text-center text-white w-2/6" style="font-family: 'Exo', sans-serif;">
-        Diviertete en nuestra página
+        ¡Inicia tu camino al conocimiento registrandote en nuestra página!
     </p>
 {% endblock name_hero %}
 
 
 {% block content %}
-    {{ formulario.as_p }}
+<div class="col-span-3">
+    <div class="sm:mx-auto sm:w-8/12">
+        <div class="bg-white py-8 px-6 drop-shadow-lg rounded-lg">
+            
+            <p class="text-3xl mb-3 mt-1 text-center">Registrarse</p>
+            <hr class="mb-8">
+            
+            {% if formulario.errors %}
+                <div class="text-sm text-red-600">
+                    {{ formulario.errors }}
+                </div>
+            {% endif %}
+                
+                
+            <form action="" class="mb-0 space-y-6" method="POST">
+                {% csrf_token %}
+                <div class="grid grid-flow-row-dense grid grid-cols-2 grid-rows-3 gap-4">
+                    <div>
+                        <div class="mt-1">
+                            <label for="username" class="block text-sm font-medium">
+                                Nombre usuario
+                            </label>
+                            <input 
+                                class="w-full border-gray-300 rounded-lg drop-shadow-md"
+                                type="text" 
+                                name="username" 
+                                id="username"
+                                placeholder="Nombre de usuario"
+                                required
+                            >
+                        </div>
+                    </div>
+                    <div>
+                        <label for="correo" class="block text-sm font-medium">Correo</label>
+                        <div class="mt-1 row-span-2">
+                            <input 
+                                class="w-full border-gray-300 rounded-lg drop-shadow-md"
+                                type="email" 
+                                name="correo" 
+                                id="correo"
+                                placeholder="Correo"
+                                required
+                            >
+                        </div>
+                    </div>
+                    <div>
+                        <label for="nombre" class="block text-sm font-medium">Nombre</label>
+                        <div class="mt-1">
+                            <input 
+                                class="w-full border-gray-300 rounded-lg drop-shadow-md"
+                                type="text" 
+                                name="nombre" 
+                                id="nombre"
+                                placeholder="Nombre"
+                                required
+                            >
+                        </div>
+                    </div>
+                    <div>
+                        <label for="apellidos" class="block text-sm font-medium">Apellido</label>
+                        <div class="mt-1">
+                            <input 
+                                class="w-full border-gray-300 rounded-lg drop-shadow-md"
+                                type="text" 
+                                name="apellidos" 
+                                id="apellidos"
+                                placeholder="Apellidos"
+                                required
+                            >
+                        </div>
+                    </div>
+    
+                    <div>
+                        <label for="password" class="block text-sm font-medium">Password</label>
+                        <div class="mt-1">
+                            <input 
+                                class="w-full border-gray-300 rounded-lg drop-shadow-md" 
+                                type="password" 
+                                name="password1" 
+                                id="password"
+                                placeholder="Contraseña"
+                                required
+                            >
+                        </div>
+                    </div>
+                    <div>
+                        <label for="password2" class="block text-sm font-medium">Password confirmar</label>
+                        <div class="mt-1">
+                            <input 
+                                class="w-full border-gray-300 rounded-lg drop-shadow-md" 
+                                type="password" 
+                                name="password2" 
+                                id="password2"
+                                placeholder="Repetir contraseña"
+                                required
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center">
+                    <button 
+                        class="text-white px-4 py-2 rounded-lg font-semibold bg-cyan-500 hover:bg-cyan-300">
+                        Registrarse
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock content %}
