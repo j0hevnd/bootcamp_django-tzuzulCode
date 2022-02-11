@@ -157,7 +157,6 @@ def eliminar_comentario(request, slug):
         return Http404(f"El comentario no fue encontrado")
         
     except Exception as e:
-        print(f"Hubo un error por.... {e}")
-        return Http404(f"Hubo un error por.... {e}")
+        raise Http404(f"Hubo un error por.... {e}")
     
     return HttpResponseRedirect( reverse('app_blog:detalle', args=(articulo.slug,)) )
