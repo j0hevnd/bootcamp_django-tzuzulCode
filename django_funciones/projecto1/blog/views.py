@@ -2,6 +2,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import redirect, render
 from django.db.models import Q
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 # models
 from .models import Articulos, Categorias, Comentario
@@ -42,25 +43,42 @@ def busqueda(request, context):
     
     if articulos_encontrados:
         context['articulos'] = articulos_encontrados
-        return context
 
     else:
         context['msj_no_encontrado'] = "No se encontraron coincidencias con \"%s\" " % busqueda
     
-    return context
+    return articulos_encontrados, context
 
+
+def paginador(request, articulos):
+    paginador = Paginator(articulos, 4)
+    pagina = request.GET.get('page')
+    
+    try:
+        articulo = paginador.page(pagina)
+    except PageNotAnInteger:
+        articulo = paginador.page(1)
+    except EmptyPage:
+        articulo = paginador.page(paginador.num_pages)
+    
+    return articulo
+    
 
 def index(request):
-    articulos = Articulos.objects.filter(
+    articulo = Articulos.objects.filter(
         publico = True
     )
 
     context = {
-        'articulos': articulos
+        'articulos': articulo
     }
     
     if request.GET.get('buscar'):
-        busqueda(request, context)
+        articulo, _ = busqueda(request, context)
+
+    articulo = paginador(request, articulo)
+    
+    context['articulos'] = articulo
     
     return render(request=request, template_name="index.html", context=context)
 

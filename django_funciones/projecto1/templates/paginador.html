@@ -1,0 +1,15 @@
+<div>
+    <span>
+        {% if page.has_previous %}
+            <a href="?page={{ page.previous_page_number }}{% if request.GET.buscar %}&buscar={{request.GET.buscar}}{% endif %}" 
+            class="hover:bg-cyan-500">Anterior</a>
+        {% endif %}
+        <span>
+            Página {{ page.number }} de {{ page.paginator.num_pages }}
+        </span>
+        {% if page.has_next %}
+            <a href="?page={{ page.next_page_number }}{% if request.GET.buscar %}&buscar={{request.GET.buscar}}{% endif %}" 
+            class="hover:bg-cyan-500">Siguiente</a>
+        {% endif %}
+    </span>
+</div>
