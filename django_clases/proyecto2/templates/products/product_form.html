@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Create product{% endblock title %}
+
+{% block content %}
+    <form action="" method="POST">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit">Add product</button>
+    </form>
+
+    <a href="{% url 'product:index' %}" ></a>
+{% endblock content %}

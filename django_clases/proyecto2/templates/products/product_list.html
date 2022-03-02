@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+           
+    {% for product in products %}           
+        <div class="card-product">
+            <h2>
+                <a href="{% url 'product:detail_product' product.id %}">{{ product.name_product }}</a>
+            </h2>
+            <p>Quantity: {{ product.stock }}</p>
+            <p>Price: {{ product.price }}</p>
+            <p>Maker: {{ product.manufacturer }}</p>
+            <p>Kind product{{ product.product_type }}</p>
+            <a href="{% url 'product:update_product' product.id %}">Edit</a>
+            <a href="{% url 'product:delete_product' product.id %}">Delete</a>
+        </div>
+    {% empty %}
+        <div>There are no registered products</div>
+    {% endfor %}
+
+</div>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">testing</button>
+</form>
+
+<br>
+<a href="#">See products to send</a>
+<hr>
+<br>
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title-pag %}Form sale{% endblock title-pag %}
+
+
+{% block content %}
+    <form method="POST">
+        {% for input in form %}
+            <label>{{ input.label }}</label>
+            <p>
+            {{ input.errors }}
+            {{ input }}
+            </p>
+        {% endfor %}
+        {% csrf_token %}
+        <button class="btn success" type="submit">Send</button>
+    </form>
+    <a class="btn primary" href="{% url 'product:index' %}">Cancel</a>
+{% endblock content %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="card-product detail">
+        <h2 class="color-blue">Name product: {{object.name_product}}</h2>
+        <p>Stock avaliable: {{object.stock}}</p>
+        <p>Price: {{object.price}}</p>
+        <p>Maker: {{object.manufacturer}}</p>
+        <p>Kind of product: {{object.product_type}}</p>
+        <p>Due date: {{object.due_date}}</p>
+        
+        <br>
+        <h3>Add car</h3>
+        <form action="{% url 'sale:add_car' %}" method="post">
+            <input type="hidden" name="id_product" value="{{ object.id }}">
+            {{form.as_p}}
+            {% csrf_token %}
+            <button type="submit">Add car</button>
+    </form>
+    </div>
+
+    <a href="{% url 'product:index' %}">Come back</a>
+{% endblock content %}
+    

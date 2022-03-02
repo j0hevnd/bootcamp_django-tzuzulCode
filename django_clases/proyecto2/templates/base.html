@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+
+    <header class="header-pag">
+        <p>
+            <a href="{% url 'product:index' %}">Product Storage</a>
+        </p>
+        <nav>
+            <a class="a-btn dark-light" href="{% url 'product:create_product' %}">Add product</a>
+            <a class="a-btn dark-light" href="#">Send product</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>
+            {% block title-pag %}{% endblock title-pag %}
+        </h1>
+        
+        {% block content %}
+        {% endblock content %}
+    </div>
+    
+    <footer>
+        <div>
+            <p>product storage</p>
+        </div>
+        <div>
+            <p>Django Class-base View</p>
+        </div>
+    </footer>
+</body>
+</html>
