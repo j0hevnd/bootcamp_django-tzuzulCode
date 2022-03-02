@@ -3,17 +3,19 @@
 
 Proyecto creado con el fin de descubrir el potencial que nos da Django con sus Class-base View
 Usamos las vistas:
-View
-TemplateView
-CreateView
-DetailView
-UpdateView
-DeleteView
-FormView
+- View
+- TemplateView
+- CreateView
+- DetailView
+- UpdateView
+- DeleteView
+- FormView
 
-Uso de formularios dentro de Django y como los validamos
-Subida de arhivos desde el HTML
-Modificación del panel de administración para manejar la forma como vemos nuestros modelos
+Uso de formularios dentro de Django y como los validamos.
+
+Subida de arhivos desde el HTML.
+
+Modificación del panel de administración para manejar la forma como vemos nuestros modelos.
 
 
 *El proyecto usa la base de datos POSTGRESQL.*
