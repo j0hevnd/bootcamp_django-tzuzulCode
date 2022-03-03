@@ -24,7 +24,9 @@ class Sale(models.Model):
     price_to_paid = models.DecimalField('Ammount paid', max_digits=10, decimal_places=2, null=False, blank=False)
     arrival_date = models.DateField("Arrival date", null=True, blank=True)
     dispatch_date = models.DateTimeField("dispatch date", null=True, blank=True)
-    anulate = models.BooleanField("Sale cancelled?", default=True)
+    paid_out = models.BooleanField('Paid out?', default=False)
+    approved = models.BooleanField('Approved?', default=False)
+    anulate = models.BooleanField("Sale cancelled?", default=False)
 
     class Meta:
         verbose_name = "Sale"

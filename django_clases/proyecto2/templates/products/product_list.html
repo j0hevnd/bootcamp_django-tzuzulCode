@@ -12,8 +12,8 @@
             <p>Price: {{ product.price }}</p>
             <p>Maker: {{ product.manufacturer }}</p>
             <p>Kind product{{ product.product_type }}</p>
-            <a href="{% url 'product:update_product' product.id %}">Edit</a>
-            <a href="{% url 'product:delete_product' product.id %}">Delete</a>
+            <a class="btn primary" href="{% url 'product:update_product' product.id %}">Edit</a>
+            <a class="btn danger" href="{% url 'product:delete_product' product.id %}">Delete</a>
         </div>
     {% empty %}
         <div>There are no registered products</div>
@@ -27,7 +27,7 @@
 </form>
 
 <br>
-<a href="#">See products to send</a>
+<a href="{% url 'sale:sale_product' %}#">See products to send</a>
 <hr>
 <br>
 {% endblock content %}

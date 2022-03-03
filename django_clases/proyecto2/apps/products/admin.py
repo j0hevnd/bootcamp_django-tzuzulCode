@@ -8,7 +8,7 @@ from .models import Maker, Category, Product
 class ProductAdmin(admin.ModelAdmin):
     readonly_fields = ('added_date',)
     
-    list_display = ('name_product', 'stock', 'manufacturer', 'product_type', 'product_expired', 'public')
+    list_display = ('name_product',  'stock', 'manufacturer', 'product_type', 'product_expired', 'public')
 
     search_fields = (
         'name_product',
@@ -23,7 +23,16 @@ class ProductAdmin(admin.ModelAdmin):
         'stock'
     )
     fieldsets = [
-        (None, {'fields': ['name_product', 'stock', 'price', 'manufacturer', 'product_type', 'due_date']}),
+        (None, 
+            {'fields': [
+                'name_product', 
+                'image_product', 
+                'stock', 'price', 
+                'manufacturer', 
+                'product_type', 
+                'due_date'
+                ]
+            }),
         ('Additional information', {'fields': ['added_date', 'public']})
     ]
     

@@ -1,7 +1,8 @@
 # Proyecto Product Storage
 ### Proyecto realizado con Vistas basadas en clases
 
-Proyecto creado con el fin de descubrir el potencial que nos da Django con sus Class-base View
+Proyecto creado con el fin de descubrir el potencial que nos da Django con sus Class-base View.
+
 Usamos las vistas:
 - View
 - TemplateView
@@ -11,7 +12,7 @@ Usamos las vistas:
 - DeleteView
 - FormView
 
-Uso de formularios dentro de Django y como los validamos.
+Uso de formularios dentro de Django y cómo los validamos.
 
 Subida de arhivos desde el HTML.
 

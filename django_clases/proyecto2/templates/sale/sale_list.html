@@ -1,7 +1,34 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% with products.count as products %}
+        <h2>{{products}} product{{products|pluralize}} to pay:</h2>
+    {% endwith %}   
+
     {% for product in products %}
-        {{product}}
+        <form method="POST">
+            <div class="form-list">
+                <div class="form-list-sale">
+                    <label>Product name</label>
+                    <p>
+                        <a href="#">{{ product.product_to_send.name_product}}</a>
+                    </p>
+                </div>
+                <div class="form-list-sale">
+                    <label>Quantity ordered</label>
+                    <p>{{ product.quantity }}</p>
+                </div>
+                <div class="form-list-sale">
+                    <label>Purchase price</label>
+                    <p>${{ product.price_to_paid }}</p>
+                </div>
+                <button class="btn success" type="submit">Pay</button>
+                <a class="btn danger ml" href="#">Cancel</a>
+            </div>
+            <input type="hidden" name="id_product" value="{{ product.id }}">
+            {% csrf_token %}
+        </form>
+    {% empty %}
+        <p class="description">There are no registered products to send</p>
     {% endfor %}
 {% endblock content %}

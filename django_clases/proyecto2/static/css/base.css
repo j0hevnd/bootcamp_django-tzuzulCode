@@ -79,15 +79,24 @@ button {
 }
 .flex {
     display: flex;
-    justify-content: space-between;
+    justify-content:space-between;
 }
 .ml {
-    margin-left: 10px;
+    margin-left:10px;
 }
 .detail-sale {
-    padding: 5px 5px;
-    background-color: #e1e1e1;
-    border-radius: 5px;
+    padding:5px 5px;
+    background-color:#e1e1e1;
+    border-radius:5px;
+}
+.description {
+    font-size:1.7rem;
+    padding:2rem 3rem;
+    background-color:#74c8f1;
+    font-weight:bold;
+    border-radius:5px;
+    color:white;
+    width:fit-content;
 }
 
 

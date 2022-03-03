@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse_lazy, reverse
 from django.views.generic import View
 from django.views.generic.edit import FormView
 
@@ -20,6 +21,11 @@ class SaleView(View):
             {'products':query_sale}
         ) 
 
+    def post(self, request, *args, **kwargs):
+        product_id = request.POST.get('id_product')
+        shipment = get_object_or_404(Sale, pk=product_id)
+
+        return HttpResponseRedirect(reverse('sale:sale_product'))
 
 
 class AddCarFormView(FormView):

@@ -12,9 +12,10 @@ class ProductForm(forms.ModelForm):
     
     class Meta:
         model = Product
-        fields = ['name_product', 'stock', 'price', 'manufacturer', 'product_type', 'due_date']
+        fields = ['name_product', 'image_product', 'stock', 'price', 'manufacturer', 'product_type', 'due_date']
         labels = {
             'name_product': 'Name of product',
+            'image_product': 'Image product',
             'stock': 'Quantity',
             'price': 'Price',
             'manufacturer': 'Maker',
