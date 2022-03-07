@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import View
 from django.views.generic.edit import FormView
+from django.shortcuts import get_object_or_404
 
 from apps.products.models import Product
 from .models import CarShop, Sale
@@ -14,16 +15,39 @@ from .forms import AddCarForm, SaleForm
 class SaleView(View):
     def get(self, request, *args, **kwargs):
         query_sale = Sale.objects.all()
-        
+
+        query_sale_send = list(filter(lambda sale: not sale.paid_out \
+            and not sale.anulate, 
+            query_sale)
+        )
+        shipments_by_approval = list(filter(lambda sale: sale.paid_out \
+            and not sale.approved \
+            and not sale.anulate, \
+            query_sale)
+        )
+        approved_shipments = list(filter(lambda sale: sale.approved \
+            and not sale.anulate \
+            and sale.dispatch_date \
+            and sale.arrival_date, \
+            query_sale)
+        )
+        cancelled_shipments = list(filter(lambda sale: sale.anulate, query_sale))
+
         return render(
             request, 
             'sale/sale_list.html', 
-            {'products':query_sale}
+            {
+                'products':query_sale_send,
+                'shipments_by_approval': shipments_by_approval,
+                'approved_shipments': approved_shipments,
+                'cancelled_shipments': cancelled_shipments,
+            }
         ) 
 
     def post(self, request, *args, **kwargs):
-        product_id = request.POST.get('id_product')
-        shipment = get_object_or_404(Sale, pk=product_id)
+        shipment = get_object_or_404(Sale, pk=request.POST.get('id_product'))
+        shipment.paid_out = True
+        shipment.save()
 
         return HttpResponseRedirect(reverse('sale:sale_product'))
 

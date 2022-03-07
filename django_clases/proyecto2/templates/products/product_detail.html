@@ -3,6 +3,7 @@
 
 {% block content %}
     <div class="card-product detail">
+        <img src="{{ product.image_product.url }}">
         <h2 class="color-blue">Name product: {{object.name_product}}</h2>
         <p>Stock avaliable: {{object.stock}}</p>
         <p>Price: {{object.price}}</p>
@@ -16,7 +17,7 @@
             <input type="hidden" name="id_product" value="{{ object.id }}">
             {{form.as_p}}
             {% csrf_token %}
-            <button type="submit">Add car</button>
+            <button class="btn primary" type="submit">Add car</button>
     </form>
     </div>
 

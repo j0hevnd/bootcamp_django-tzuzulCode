@@ -31,4 +31,144 @@
     {% empty %}
         <p class="description">There are no registered products to send</p>
     {% endfor %}
+    <br>
+    <a class="btn primary" href="{% url "product:index" %}">Come back</a>
+
+    <h2 style="margin-top: 70px;">Shipments by approval</h2>
+    
+    {% for product in shipments_by_approval %}
+        <div class="form-list">
+            <div class="form-list-sale">
+                <label for="">Product name</label>
+                <p>{{ product.product_to_send.name_product }}</p>
+            </div>
+            <div class="form-list-sale">
+                <label for="">Quantity</label>
+                <p>{{ product.quantity }}</p>
+            </div>
+            <div class="form-list-sale">
+                <label for="">Purchase price</label>
+                <p>{{ product.price_to_paid }}</p>
+            </div>
+            <div class="form-list-sale">
+                <label for="">Dispatch date</label>
+                <p>{{ product.dispatch_date }}</p>
+            </div>
+            <div class="form-list-sale">
+                <label for="">arrival date</label>
+                <p>{{ product.arrival_date }}</p>
+            </div>
+            <div class="form-list-sale">
+                <label for="">Approve?</label>
+                {% if product.approved %}
+                    <p class="color-green"><strong>&checkmark;</strong></p>
+                {% else %}
+                    <p class="color-red"><strong>&cross;</strong></p>
+                {% endif %}        
+            </div>
+            <div class="form-list-sale">
+                <label for="">Anulate?</label>
+                {% if product.anulate %}
+                    <p class="color-green"><strong>&checkmark;</strong></p>
+                {% else %}
+                    <p class="color-red"><strong>&cross;</strong></p>
+                {% endif %}        
+            </div>
+        </div>
+    {% empty %}
+        <p class="description">There are no register of paid products</p>
+    {% endfor %}
+
+
+    <h2 style="margin-top: 70px;">Cancelled shipments</h2>
+    
+    {% for product in cancelled_shipments %}
+        <div class="form-list">
+            <div class="form-list-sale">
+                <label for="">Product name</label>
+                <p>{{ product.product_to_send.name_product }}</p>
+            </div>
+            <div class="form-list-sale">
+                <label for="">Quantity</label>
+                <p>{{ product.quantity }}</p>
+            </div>
+            <div class="form-list-sale">
+                <label for="">Purchase price</label>
+                <p>{{ product.price_to_paid }}</p>
+            </div>
+            <div class="form-list-sale">
+                <label for="">Dispatch date</label>
+                <p>{{ product.dispatch_date }}</p>
+            </div>
+            <div class="form-list-sale">
+                <label for="">arrival date</label>
+                <p>{{ product.arrival_date }}</p>
+            </div>
+            <div class="form-list-sale">
+                <label for="">Approve?</label>
+                {% if product.approved %}
+                    <p class="color-green"><strong>&checkmark;</strong></p>
+                {% else %}
+                    <p class="color-red"><strong>&cross;</strong></p>
+                {% endif %}        
+            </div>
+            <div class="form-list-sale">
+                <label for="">Anulate?</label>
+                {% if product.anulate %}
+                    <p class="color-green"><strong>&checkmark;</strong></p>
+                {% else %}
+                    <p class="color-red"><strong>&cross;</strong></p>
+                {% endif %}        
+            </div>
+        </div>
+    {% empty %}
+        <p class="description">There are no register cancelled</p>
+    {% endfor %}
+
+
+    <h2 style="margin-top: 70px;">Approved shipments</h2>
+    
+    {% for product in approved_shipments %}
+        <div class="form-list">
+            <div class="form-list-sale">
+                <label for="">Product name</label>
+                <p>{{ product.product_to_send.name_product }}</p>
+            </div>
+            <div class="form-list-sale">
+                <label for="">Quantity</label>
+                <p>{{ product.quantity }}</p>
+            </div>
+            <div class="form-list-sale">
+                <label for="">Purchase price</label>
+                <p>{{ product.price_to_paid }}</p>
+            </div>
+            <div class="form-list-sale">
+                <label for="">Dispatch date</label>
+                <p>{{ product.dispatch_date }}</p>
+            </div>
+            <div class="form-list-sale">
+                <label for="">arrival date</label>
+                <p>{{ product.arrival_date }}</p>
+            </div>
+            <div class="form-list-sale">
+                <label for="">Approve?</label>
+                {% if product.approved %}
+                    <p class="color-green"><strong>&checkmark;</strong></p>
+                {% else %}
+                    <p class="color-red"><strong>&cross;</strong></p>
+                {% endif %}        
+            </div>
+            <div class="form-list-sale">
+                <label for="">Anulate?</label>
+                {% if product.anulate %}
+                    <p class="color-green"><strong>&checkmark;</strong></p>
+                {% else %}
+                    <p class="color-red"><strong>&cross;</strong></p>
+                {% endif %}        
+            </div>
+        </div>
+    {% empty %}
+        <p class="description">There are no register approved</p>
+    {% endfor %}
+
 {% endblock content %}

@@ -1,5 +1,8 @@
-from tabnanny import verbose
+from datetime import timedelta
+
 from django.db import models
+from django.utils import timezone
+from django.contrib import admin
 
 from apps.products.models import Product
 # Create your models here.
@@ -31,6 +34,24 @@ class Sale(models.Model):
     class Meta:
         verbose_name = "Sale"
         verbose_name_plural = "Sales"
+
+    @admin.display(
+        boolean= True,
+        description="Approved?"
+    )
+    def approved_sale(self):
+        if self.approved and self.dispatch_date is None:
+            self.dispatch_date = timezone.now()
+            self.arrival_date = timezone.now() + timedelta(4)
+            self.save()
+
+        if not self.approved and self.dispatch_date is not None:
+            self.dispatch_date = None
+            self.arrival_date = None
+            self.save()
+
+        return self.approved
+
 
     def __str__(self):
         return f"{self.id} - {self.product_to_send}"

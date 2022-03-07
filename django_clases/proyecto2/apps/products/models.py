@@ -30,7 +30,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     name_product = models.CharField("Product name", unique=True, max_length=200, null=False, blank=False)
-    image_product = models.ImageField('Image product', upload_to='product/', null=True, blank=True)
+    image_product = models.ImageField('Image product', upload_to='product/', null=False, blank=False)
     stock = models.IntegerField("Stock available", default=0)
     price = models.FloatField("Price", default=00.0)
     manufacturer = models.ForeignKey(Maker, on_delete=models.CASCADE)
