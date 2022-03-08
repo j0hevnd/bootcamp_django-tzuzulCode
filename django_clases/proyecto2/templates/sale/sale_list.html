@@ -23,7 +23,7 @@
                     <p>${{ product.price_to_paid }}</p>
                 </div>
                 <button class="btn success" type="submit">Pay</button>
-                <a class="btn danger ml" href="#">Cancel</a>
+                <a class="btn danger ml" href="{% url 'sale:delete_sale' product.id %}">Cancel</a>
             </div>
             <input type="hidden" name="id_product" value="{{ product.id }}">
             {% csrf_token %}

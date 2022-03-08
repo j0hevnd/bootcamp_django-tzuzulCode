@@ -53,4 +53,16 @@ class SaleForm(forms.ModelForm):
 
         if address == address_2:
             raise forms.ValidationError('Must be a different address that the first', code='invalid')
+
+        return address_2
+
+
+    def clean_quantity(self):
+        quantity = self.cleaned_data['quantity']
+        product = self.cleaned_data['product_to_send']
+
+        if quantity > product.stock:
+            message = f'The quantity ordered is most than the quantity in stock. Count in stock: {product.stock }'
+            raise forms.ValidationError(message, code='invalid')
         
+        return quantity

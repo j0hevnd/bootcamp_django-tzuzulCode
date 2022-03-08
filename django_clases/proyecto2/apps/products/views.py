@@ -43,13 +43,17 @@ class ProductTemplateView(TemplateView, ProductView):
 class ProductListView(ListView):
     template_name = 'products/product_list.html'
     context_object_name = 'products'
+    paginate_by = 5
     # queryset = Product.objects.all()
     # ordering = '-price'
 
     def get_queryset(self):
-        products = Product.objects.filter(public=True).order_by('-price')
-        queryset = [product for product in products if not product.product_expired()]
-        return queryset
+        products = Product.objects.filter(
+            public=True,
+            stock__gt = 0
+        ).order_by('-price')
+        # queryset = [product for product in products if not product.product_expired()]
+        return products
 
 
 class ProductDetailView(DetailView):

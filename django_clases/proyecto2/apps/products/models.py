@@ -1,7 +1,5 @@
-from tokenize import blank_re
 from django.db import models
 from django.contrib import admin
-from django.forms import ImageField
 from django.utils import timezone
 
 # Create your models here.
@@ -48,7 +46,12 @@ class Product(models.Model):
         description='Expired product?'
     )
     def product_expired(self):
-        return self.due_date < timezone.now()
+        product_expired = self.due_date < timezone.now()
+        if product_expired:
+            self.public = False
+            self.save()
+
+        return product_expired
     
     def __str__(self):
         return self.name_product

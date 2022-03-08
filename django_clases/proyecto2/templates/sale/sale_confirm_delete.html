@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Delete shipment
+{% endblock title %}
+
+
+{% block content %}
+    <form method="POST">
+        <h2>Are you sure you want to delete the shipment: {{ object.product_to_send.name_product }}?</h2>
+        {% csrf_token %}
+        <button class="btn danger" type="submit">Yes, I'm sure</button>
+    </form>
+    <br>
+    <a href="{% url 'sale:sale_product' %}">No, go back</a>
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import View
+from django.views.generic import View, DeleteView
 from django.views.generic.edit import FormView
 from django.shortcuts import get_object_or_404
 
@@ -53,11 +53,16 @@ class SaleView(View):
 
 
 class AddCarFormView(FormView):
+    """
+    
+    """
     template_name = 'sale/sale_form.html'
     form_class = SaleForm
     success_url = reverse_lazy('product:index')
 
     def form_valid(self, form):
+        """
+        """
         count = form.cleaned_data.get('quantity')
         product_to_send = form.cleaned_data.get('product_to_send')
         total_price = product_to_send.price * count
@@ -71,7 +76,23 @@ class AddCarFormView(FormView):
                 }
             )
             
+            if created:
+                obj.product_to_send.stock -=count
+                product_to_send.save()
+
         except Exception as e:
             print("An error has ocurred due to....", e)
 
         return super(AddCarFormView, self).form_valid(form)
+
+
+class SaleDeleteView(DeleteView):
+    model = Sale
+    success_url = reverse_lazy('sale:sale_product')
+    
+    def post(self, request, pk, *args, **kwargs):
+        object = self.model.objects.get(id=pk)
+        object.product_to_send.stock += object.quantity
+        object.product_to_send.save()
+        object.delete()
+        return redirect(self.success_url)

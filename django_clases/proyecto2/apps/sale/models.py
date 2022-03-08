@@ -40,6 +40,8 @@ class Sale(models.Model):
         description="Approved?"
     )
     def approved_sale(self):
+        """
+        """
         if self.approved and self.dispatch_date is None:
             self.dispatch_date = timezone.now()
             self.arrival_date = timezone.now() + timedelta(4)

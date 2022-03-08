@@ -2,7 +2,6 @@
 
 {% block content %}
 <div class="card">
-           
     {% for product in products %}           
         <div class="card-product">
             <img src="{{ product.image_product.url }}">
@@ -19,8 +18,9 @@
     {% empty %}
         <p class="description">There are no registered products</p>
     {% endfor %}
-
 </div>
+
+{% include 'pagination.html' with page_obj=page_obj %}
 
 <form method="POST">
     {% csrf_token %}
