@@ -1,9 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import View, DeleteView
+from django.views.generic import View, DetailView, DeleteView
 from django.views.generic.edit import FormView
-from django.shortcuts import get_object_or_404
 
 from apps.products.models import Product
 from .models import CarShop, Sale
@@ -13,6 +12,16 @@ from .forms import AddCarForm, SaleForm
 # Create your views here.
 
 class SaleView(View):
+
+    def get_queryset(self):
+        return super().get_queryset()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context[""] = 
+        return context
+    
+    
     def get(self, request, *args, **kwargs):
         query_sale = Sale.objects.all()
 
@@ -63,28 +72,30 @@ class AddCarFormView(FormView):
     def form_valid(self, form):
         """
         """
-        count = form.cleaned_data.get('quantity')
+        count = form.cleaned_data.pop('quantity')
         product_to_send = form.cleaned_data.get('product_to_send')
         total_price = product_to_send.price * count
 
         try:
-            obj, created = Sale.objects.get_or_create(
-                quantity=count,
+            # get_or_create()
+            sale_create = Sale.objects.create( # Sale
+                quantity = count,
                 price_to_paid = total_price,
-                defaults = {
-                    **form.cleaned_data
-                }
+                **form.cleaned_data
             )
-            
-            if created:
-                obj.product_to_send.stock -=count
-                product_to_send.save()
+            sale_create.product_to_send.stock -= count # Sale / Product
+
+            sale_create.product_to_send.save() # Product.save()
+            sale_create.save() # Sale.save()
 
         except Exception as e:
             print("An error has ocurred due to....", e)
 
         return super(AddCarFormView, self).form_valid(form)
 
+
+class SaleDetailView(DetailView):
+    model = Sale
 
 class SaleDeleteView(DeleteView):
     model = Sale

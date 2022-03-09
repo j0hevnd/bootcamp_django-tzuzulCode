@@ -1,6 +1,6 @@
-from multiprocessing.sharedctypes import Value
 from django import forms
 
+from apps.products.models import Product
 from .models import Sale, CarShop
 
 
@@ -26,6 +26,15 @@ class AddCarForm(forms.Form):
 
 
 class SaleForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['product_to_send'].queryset = Product.objects.filter(
+            public=True
+        )
+
+
     class Meta:
         model = Sale 
         fields = ('delivery_address', 'delivery_address_2', 'reference_point',

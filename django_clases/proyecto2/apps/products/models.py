@@ -47,8 +47,13 @@ class Product(models.Model):
     )
     def product_expired(self):
         product_expired = self.due_date < timezone.now()
-        if product_expired:
+
+        if (product_expired and self.public) or self.stock == 0:
             self.public = False
+            self.save()
+
+        elif not product_expired and not self.public and self.stock > 0:
+            self.public = True
             self.save()
 
         return product_expired
