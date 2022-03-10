@@ -31,7 +31,8 @@ class SaleForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields['product_to_send'].queryset = Product.objects.filter(
-            public=True
+            public=True,
+            stock__gt = 0
         )
 
 

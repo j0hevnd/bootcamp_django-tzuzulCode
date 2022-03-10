@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% with products.count as products %}
-        <h2>{{products}} product{{products|pluralize}} to pay:</h2>
+    {% with query_sale_send.count as query_sale_send %}
+        <h2>{{query_sale_send}} product{{query_sale_send|pluralize}} to pay:</h2>
     {% endwith %}   
 
-    {% for product in products %}
+    {% for product in query_sale_send %}
         <form method="POST">
             <div class="form-list">
                 <div class="form-list-sale">
                     <label>Product name</label>
                     <p>
-                        <a href="#">{{ product.product_to_send.name_product}}</a>
+                        <a href="{% url 'sale:detail_sale' product.id %}">{{ product.product_to_send.name_product}}</a>
                     </p>
                 </div>
                 <div class="form-list-sale">

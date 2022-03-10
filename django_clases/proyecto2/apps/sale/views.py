@@ -1,3 +1,4 @@
+from django import dispatch
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy, reverse
@@ -12,46 +13,39 @@ from .forms import AddCarForm, SaleForm
 # Create your views here.
 
 class SaleView(View):
+    model = Sale
+    template_name = 'sale/sale_list.html'
 
     def get_queryset(self):
-        return super().get_queryset()
+        return self.model.objects.all()
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context[""] = 
-        return context
-    
-    
-    def get(self, request, *args, **kwargs):
-        query_sale = Sale.objects.all()
+        query_sale = self.get_queryset()
+        context = {}
 
-        query_sale_send = list(filter(lambda sale: not sale.paid_out \
+        context["query_sale_send"] = list(filter(lambda sale: not sale.paid_out \
             and not sale.anulate, 
             query_sale)
         )
-        shipments_by_approval = list(filter(lambda sale: sale.paid_out \
+        context["shipments_by_approval"] = list(filter(lambda sale: sale.paid_out \
             and not sale.approved \
             and not sale.anulate, \
             query_sale)
         )
-        approved_shipments = list(filter(lambda sale: sale.approved \
+        context["approved_shipments"] = list(filter(lambda sale: sale.approved \
             and not sale.anulate \
             and sale.dispatch_date \
             and sale.arrival_date, \
             query_sale)
         )
-        cancelled_shipments = list(filter(lambda sale: sale.anulate, query_sale))
+        context["cancelled_shipments"] = list(filter(lambda sale: sale.anulate, query_sale))
 
-        return render(
-            request, 
-            'sale/sale_list.html', 
-            {
-                'products':query_sale_send,
-                'shipments_by_approval': shipments_by_approval,
-                'approved_shipments': approved_shipments,
-                'cancelled_shipments': cancelled_shipments,
-            }
-        ) 
+        return context
+    
+    
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, self.get_context_data())
+
 
     def post(self, request, *args, **kwargs):
         shipment = get_object_or_404(Sale, pk=request.POST.get('id_product'))
