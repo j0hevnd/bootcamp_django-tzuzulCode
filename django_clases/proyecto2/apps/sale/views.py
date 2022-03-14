@@ -13,6 +13,11 @@ from .forms import SaleForm
 # Create your views here.
 
 class SaleView(LoginRequiredMixin, View):
+    """ 
+    View on which we will write logic for the application
+    both to return data to the view from the data how to change attribute values in the database
+    """
+
     model = Sale
     template_name = 'sale/sale_list.html'
 
@@ -44,10 +49,12 @@ class SaleView(LoginRequiredMixin, View):
     
     
     def get(self, request, *args, **kwargs):
+        """ We return the requested data for this method """
         return render(request, self.template_name, self.get_context_data())
 
 
     def post(self, request, *args, **kwargs):
+        """ Changes a product's paid status to True """
         shipment = get_object_or_404(Sale, pk=request.POST.get('id_product'))
         shipment.paid_out = True
         shipment.save()
@@ -57,7 +64,11 @@ class SaleView(LoginRequiredMixin, View):
 
 class AddCarFormView(LoginRequiredMixin, FormView):
     """
-    
+    Class for handling a form itself
+    requires:
+        -template_name
+        - form_class
+        -success_url
     """
     template_name = 'sale/sale_form.html'
     form_class = SaleForm
@@ -65,6 +76,8 @@ class AddCarFormView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         """
+        Enter this function in case of passing all the specific validations of our form.
+        *cleaned_data contains the form information.
         """
         count = form.cleaned_data.pop('quantity')
         product_to_send = form.cleaned_data.get('product_to_send')
@@ -89,14 +102,20 @@ class AddCarFormView(LoginRequiredMixin, FormView):
 
 
 class SaleDetailView(LoginRequiredMixin, DetailView):
+    """ Show the detail of a shipment """
     model = Sale
 
 
 class SaleDeleteView(LoginRequiredMixin, DeleteView):
+    """ Delete a shipment """
     model = Sale
     success_url = reverse_lazy('sale:sale_product')
     
     def post(self, request, pk, *args, **kwargs):
+        """ 
+        We catch the post method to return the amount we have in stock 
+        of the product before completely deleting it from the database 
+        """
         object = self.model.objects.get(id=pk)
         object.product_to_send.stock += object.quantity
         object.product_to_send.save()

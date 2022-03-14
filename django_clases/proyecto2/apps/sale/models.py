@@ -17,6 +17,7 @@ class CarShop(models.Model):
 
 
 class Sale(models.Model):
+    """ Model that represents a shipment in the database """
     product_to_send = models.ForeignKey(Product, on_delete=models.CASCADE)
     delivery_address = models.CharField("Main delivery address", max_length=200, null=False, blank=False)
     delivery_address_2 = models.CharField("Second delivery address", max_length=200, null=True, blank=True)
@@ -40,7 +41,9 @@ class Sale(models.Model):
         description="Approved?"
     )
     def approved_sale(self):
-        """
+        """ 
+        Assign values to fields of the database table according 
+        to conditions specific to the object of the table 
         """
         if self.approved and self.dispatch_date is None:
             self.dispatch_date = timezone.now()
