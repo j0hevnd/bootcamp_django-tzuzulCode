@@ -4,8 +4,14 @@ from .models import Maker, Category, Product
 
 # Register your models here.
 
+# Podemos decorar la clase, o pasar la clase 
+# como segundo argumento a admin.site.register()
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    """
+    We changed the way our database tables are represented in the Django admin panel
+    """
     readonly_fields = ('added_date',)
     
     list_display = ('name_product',  'stock', 'manufacturer', 'product_type', 'product_expired', 'public')

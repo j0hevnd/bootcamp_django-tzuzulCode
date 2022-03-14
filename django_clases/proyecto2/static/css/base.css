@@ -45,7 +45,11 @@ label {
 }
 
 p {
-    font-size:1.3rem;
+    font-size:1.7rem;
+}
+
+li, span {
+    font-size: 1.3rem;
 }
 
 img {

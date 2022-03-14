@@ -9,8 +9,23 @@ from .models import Product
 formatted_date = dateformat.format(timezone.now(), 'Y-m-d H:i')
 
 class ProductForm(forms.ModelForm):
+    """
+    Create a form for our project, based on the requirements.
+    
+    We can rely on database models for the form (forms.ModelForm) or
+    create a form as needed (forms.Form)
+    """
     
     class Meta:
+        """
+        Metadata for the form.
+        
+        - model: base model for our form
+        - fields: Fields of the model that we want to show in the form
+        - label: Labels that will be taken for the field in the HTML
+        - widgets: We specify the type of field to show and attributes that it will contain (placeholder, id, class...)
+        """
+
         model = Product
         fields = ['name_product', 'image_product', 'stock', 'price', 'manufacturer', 'product_type', 'due_date']
         labels = {
@@ -42,6 +57,12 @@ class ProductForm(forms.ModelForm):
                 }
             )
         }
+
+
+    """
+    We do our own validations for the form using the method clean_<field_name>(); 
+    cleaned_data contains the information of our form like a dictionary.
+    """
     
     def clean_stock(self):
         stock = self.cleaned_data.get('stock')
