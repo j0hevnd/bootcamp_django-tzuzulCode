@@ -9,6 +9,8 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 from .models import Product
 from .forms import ProductForm
@@ -65,19 +67,19 @@ class ProductDetailView(DetailView):
         return context
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('product:index')
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('product:index')
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('product:index')
 

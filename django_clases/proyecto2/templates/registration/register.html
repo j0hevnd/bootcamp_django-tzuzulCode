@@ -1,0 +1,11 @@
+{% extends 'base.html' %}   
+{% block title %}Register page{% endblock title %}
+{% block content %}
+    <h1>Welcome to register page</h1>
+    <p>Please, sing up using the following form:</p>
+    <form action="" method="POST">
+        {{form.as_p}}
+        {% csrf_token %}
+        <p><input class="btn success" type="submit" value="Create my account"></p>
+    </form>
+{% endblock content %}

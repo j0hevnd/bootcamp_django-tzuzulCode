@@ -1,18 +1,18 @@
-from django import dispatch
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import View, DetailView, DeleteView
 from django.views.generic.edit import FormView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from apps.products.models import Product
-from .models import CarShop, Sale
-from .forms import AddCarForm, SaleForm
+from .models import Sale
+from .forms import SaleForm
 
 
 # Create your views here.
 
-class SaleView(View):
+class SaleView(LoginRequiredMixin, View):
     model = Sale
     template_name = 'sale/sale_list.html'
 
@@ -55,7 +55,7 @@ class SaleView(View):
         return HttpResponseRedirect(reverse('sale:sale_product'))
 
 
-class AddCarFormView(FormView):
+class AddCarFormView(LoginRequiredMixin, FormView):
     """
     
     """
@@ -88,10 +88,11 @@ class AddCarFormView(FormView):
         return super(AddCarFormView, self).form_valid(form)
 
 
-class SaleDetailView(DetailView):
+class SaleDetailView(LoginRequiredMixin, DetailView):
     model = Sale
 
-class SaleDeleteView(DeleteView):
+
+class SaleDeleteView(LoginRequiredMixin, DeleteView):
     model = Sale
     success_url = reverse_lazy('sale:sale_product')
     
