@@ -14,7 +14,7 @@ from django.contrib.auth.models import User
 #         return super().clean()
 
 class LoginForm(AuthenticationForm):
-
+    """ User login form """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs['placeholder'] = 'Username'
@@ -22,7 +22,7 @@ class LoginForm(AuthenticationForm):
 
 
 class UserRegistrationForm(forms.ModelForm):
-
+    """ Form for user registration """
     # password = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Repeat password', widget=forms.PasswordInput)
     
@@ -35,6 +35,7 @@ class UserRegistrationForm(forms.ModelForm):
         }
 
     def clean_password2(self):
+        """ validate that the passwords match """
         cd = self.cleaned_data
         if cd['password'] != cd['password2']:
             raise forms.ValidationError('Password don\'t match', code='invalid')

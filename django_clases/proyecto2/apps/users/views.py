@@ -12,6 +12,7 @@ from .forms import LoginForm, UserRegistrationForm
 # Create your views here.
 
 class LoginView(FormView):
+    """ Render a login form and start the session"""
     template_name = 'users/login.html'
     form_class = LoginForm
     success_url = reverse_lazy('product:index')
@@ -34,6 +35,7 @@ class LoginView(FormView):
 #     return redirect(reverse('users:login'))
 
 def register(request):
+    """ User registration """
     if request.method=="POST":
         user_form = UserRegistrationForm(request.POST)
         if user_form.is_valid():
@@ -49,6 +51,7 @@ def register(request):
 
 
 class RegisterCreateView(CreateView):
+    """ User registration whit VBC """
     template_name = 'registration/register.html'
     form_class = UserRegistrationForm
     success_url = reverse_lazy("users:register_done")
@@ -60,4 +63,5 @@ class RegisterCreateView(CreateView):
 
 
 class RegisterDoneTemplateView(TemplateView):
+    """ Shows a success template when we successfully register a user """
     template_name = 'registration/register_done.html'
