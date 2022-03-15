@@ -3,6 +3,8 @@
 
 {% block content %}
     <h1>Log-in</h1>
+
+    <p>Are you no register?, <a href="{% url 'users:register' %}">Create an account</a></p>
     <div class="login-form">
         <form action="{% url 'users:login' %}" method="POST">
             {{ form.as_p }}

@@ -1,3 +1,4 @@
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
@@ -8,7 +9,7 @@ from django.views.generic.edit import FormView
 from django.views.generic import CreateView, TemplateView
 from django.contrib.auth import login, logout
 
-from .forms import LoginForm, UserRegistrationForm
+from .forms import LoginForm, UserRegistrationForm, CustomUserCreationForm
 # Create your views here.
 
 class LoginView(FormView):
@@ -30,18 +31,16 @@ class LoginView(FormView):
         login(self.request, form.get_user())
         return super().form_valid(form)
 
-# def logout_user(request):
-#     logout(request)
-#     return redirect(reverse('users:login'))
+def logout_user(request):
+    logout(request)
+    return redirect(reverse('users:login'))
 
 def register(request):
     """ User registration """
     if request.method=="POST":
         user_form = UserRegistrationForm(request.POST)
         if user_form.is_valid():
-            new_user = user_form.save(commit=False)
-            new_user.set_password(user_form.cleaned_data['password'])
-            new_user.save()
+            user_form.save()
             return render(request, 'registration/register_done.html')
 
     else: 
@@ -53,13 +52,8 @@ def register(request):
 class RegisterCreateView(CreateView):
     """ User registration whit VBC """
     template_name = 'registration/register.html'
-    form_class = UserRegistrationForm
+    form_class = CustomUserCreationForm
     success_url = reverse_lazy("users:register_done")
-
-    def form_valid(self, form):
-        new_user = form.save(commit=False)
-        new_user.set_password(self.request.POST['password'])
-        return super().form_valid(form)
 
 
 class RegisterDoneTemplateView(TemplateView):

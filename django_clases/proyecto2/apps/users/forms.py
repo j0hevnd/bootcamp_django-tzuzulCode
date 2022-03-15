@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 # class LoginForm(forms.Form):
 #     username = forms.TextInput(
@@ -34,6 +35,20 @@ class UserRegistrationForm(forms.ModelForm):
             'password': forms.PasswordInput
         }
 
+    
+    def clean(self):
+        cd = super().clean()
+        password = cd['password']
+        password2 = cd['password2']
+        print(len(password))
+        if len(password) < 7 or len(password) > 15:
+            self.add_error('password', 'this password is too short. It must contain al least 8 characters and max lenght 15 characters')
+        
+        if len(password2) < 7 or len(password2) > 15:
+            self.add_error('password2', 'this password is too short. It must contain al least 8 characters and max lenght 15 characters')
+
+        return cd
+
     def clean_password2(self):
         """ validate that the passwords match """
         cd = self.cleaned_data
@@ -41,3 +56,16 @@ class UserRegistrationForm(forms.ModelForm):
             raise forms.ValidationError('Password don\'t match', code='invalid')
 
         return cd['password2']
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data['password'])
+        if commit:
+            user.save()
+        return user
+
+    
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name", "username", "email")
