@@ -15,5 +15,4 @@ urlpatterns = [
     # path('register/', views.register, name='register'),
     path('register/', views.RegisterCreateView.as_view(), name='register'),
     path('register-done/', views.RegisterDoneTemplateView.as_view(), name='register_done'),
-    path('/accounts/profile', views.product.as_view(), name='register_done'),
 ]

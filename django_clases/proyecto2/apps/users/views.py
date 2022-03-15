@@ -32,8 +32,10 @@ class LoginView(FormView):
         return super().form_valid(form)
 
 def logout_user(request):
+    """ Logout """
     logout(request)
     return redirect(reverse('users:login'))
+
 
 def register(request):
     """ User registration """

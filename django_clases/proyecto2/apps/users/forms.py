@@ -3,16 +3,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
-# class LoginForm(forms.Form):
-#     username = forms.TextInput(
-#         label='Username'
-#     )
-#     password = forms.PasswordInput(
-#         label='Password'
-#     )
-
-#     def clean(self):
-#         return super().clean()
 
 class LoginForm(AuthenticationForm):
     """ User login form """
@@ -66,6 +56,7 @@ class UserRegistrationForm(forms.ModelForm):
 
     
 class CustomUserCreationForm(UserCreationForm):
+    """ Create a user form inherited from UserCreationForm with fields that we specify """
     class Meta:
         model = User
         fields = ("first_name", "last_name", "username", "email")
