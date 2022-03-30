@@ -2,8 +2,9 @@ from rest_framework import status
 from rest_framework.generics import (
     ListAPIView,
     CreateAPIView,
-    UpdateAPIView,
+    RetrieveAPIView,
     RetrieveUpdateAPIView,
+    UpdateAPIView,
     DestroyAPIView
 )
 from rest_framework.response import Response
@@ -37,3 +38,26 @@ class CategoryDeleteApiView(DestroyAPIView):
 
 
 # Movies
+
+class MovieListApiView(ListAPIView):
+    serializer_class = MovieSerializer
+    queryset = Movie.objects.all()
+
+
+class MovieRetrieveApiView(RetrieveAPIView):
+    serializer_class = MovieSerializer
+    queryset = Movie.objects.all()
+
+
+class MovieCreateApiView(CreateAPIView):
+    serializer_class = MovieSerializer
+
+
+class MovieUpdateApiView(RetrieveUpdateAPIView):
+    serializer_class = MovieSerializer
+    queryset = Movie.objects.all()
+
+
+class MovieDestroyApiView(DestroyAPIView):
+    serializer_class = MovieSerializer
+    queryset = Movie.objects.all()

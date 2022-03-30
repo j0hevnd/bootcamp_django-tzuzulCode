@@ -42,6 +42,7 @@ BASE_APPS = [
 lOCAL_APSS = [
     'apps.ejmp.apps.EjmpConfig',
     'apps.movies.apps.MoviesConfig',
+    'apps.reviews.apps.ReviewsConfig',
 ]
 
 THIRD_APPS = [

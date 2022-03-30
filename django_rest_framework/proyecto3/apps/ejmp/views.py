@@ -1,4 +1,3 @@
-from urllib import response
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -31,7 +30,7 @@ def product_view_all(request):
         product_serializer = ProductSerializer2(data=request.data)
         
         if product_serializer.is_valid():
-            product_serializer.save() # llamar al método create de los serializers
+            product_serializer.save() # Calls the create method of the serializers
             return Response(product_serializer.data, status=status.HTTP_201_CREATED)
             
         else: return Response(product_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
