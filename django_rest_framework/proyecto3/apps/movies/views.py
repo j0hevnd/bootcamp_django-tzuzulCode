@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from apps.movies import serializers
 
 from apps.movies.models import Category, Movie
-from apps.movies.serializers import CategorySerializer, MovieSerializer
+from apps.movies.serializers import CategorySerializer, MovieSerializer, MovieDetailSerializer
 
 # Categories
 class CategoryListApiView(ListAPIView):
@@ -45,7 +45,7 @@ class MovieListApiView(ListAPIView):
 
 
 class MovieRetrieveApiView(RetrieveAPIView):
-    serializer_class = MovieSerializer
+    serializer_class = MovieDetailSerializer
     queryset = Movie.objects.all()
 
 

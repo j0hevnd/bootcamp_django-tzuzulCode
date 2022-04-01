@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.generics import UpdateAPIView, RetrieveUpdateAPIView
 
-# Create your views here.
+from apps.reviews.models import Review
+from apps.reviews.serializers import ReviewSerializer
+
+
+class ReviewUpdateApiView(RetrieveUpdateAPIView):
+    serializer_class = ReviewSerializer
+    queryset = Review.objects.all()

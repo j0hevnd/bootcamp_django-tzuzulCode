@@ -8,4 +8,5 @@ class ReviewSerializer(serializers.ModelSerializer):
         model = Review
         fields = ('__all__')
 
+        depth = 2
         

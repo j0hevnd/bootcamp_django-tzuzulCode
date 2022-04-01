@@ -20,6 +20,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/ejem/', include("apps.ejmp.urls")),
     path('api/', include("apps.movies.urls")),
+    path('api/review/', include("apps.reviews.urls")),
     # routers
     path('api/review/', include("apps.reviews.routers")),
 ]
