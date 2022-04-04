@@ -47,6 +47,14 @@ class ReviewViewSet(viewsets.ViewSet):
         seralizer = ReviewSerializer(instance)
         return Response(seralizer.data, status=status.HTTP_200_OK)
 
+    
+    def update(self, request, pk=None):
+        instance = get_object_or_404(Review, pk=pk)
+        serializer = ReviewSerializer(instance=instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
 
     def destroy(self, request, pk=None):
         """

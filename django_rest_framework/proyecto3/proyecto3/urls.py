@@ -21,6 +21,7 @@ urlpatterns = [
     path('api/ejem/', include("apps.ejmp.urls")),
     path('api/', include("apps.movies.urls")),
     path('api/review/', include("apps.reviews.urls")),
+    path('api/acounts/', include("apps.users.urls")),
     # routers
     path('api/review/', include("apps.reviews.routers")),
 ]
