@@ -24,12 +24,12 @@ class ReviewViewSet(viewsets.ViewSet):
 
     def create(self, request):
         try:
-            movie = Movie.objects.get(movie_name=request.data['movie_review'])
+            # movie = Movie.objects.get(movie_name=request.data['movie_review'])
             serializer = ReviewSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(
-                {'msg': 'Commnet uploaded successfully', 'data':serializer.data}, 
+                {'msg': 'Comment uploaded successfully', 'data':serializer.data}, 
                 status=status.HTTP_201_CREATED
             )
 

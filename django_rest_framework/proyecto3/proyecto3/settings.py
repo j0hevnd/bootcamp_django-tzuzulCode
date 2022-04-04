@@ -39,7 +39,7 @@ BASE_APPS = [
     'django.contrib.staticfiles',
 ]
 
-lOCAL_APSS = [
+lOCAL_APPS = [
     'apps.ejmp.apps.EjmpConfig',
     'apps.movies.apps.MoviesConfig',
     'apps.reviews.apps.ReviewsConfig',
@@ -47,9 +47,10 @@ lOCAL_APSS = [
 
 THIRD_APPS = [
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
-INSTALLED_APPS = BASE_APPS + lOCAL_APSS + THIRD_APPS
+INSTALLED_APPS = BASE_APPS + lOCAL_APPS + THIRD_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -133,3 +134,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Authentication DRF
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}

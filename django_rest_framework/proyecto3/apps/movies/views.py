@@ -1,4 +1,5 @@
 from rest_framework import status
+from rest_framework.response import Response
 from rest_framework.generics import (
     ListAPIView,
     CreateAPIView,
@@ -7,14 +8,15 @@ from rest_framework.generics import (
     UpdateAPIView,
     DestroyAPIView
 )
-from rest_framework.response import Response
-from apps.movies import serializers
+
+from rest_framework.permissions import AllowAny
 
 from apps.movies.models import Category, Movie
 from apps.movies.serializers import CategorySerializer, MovieSerializer, MovieDetailSerializer
 
 # Categories
 class CategoryListApiView(ListAPIView):
+    permission_classes = [AllowAny]
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
 
@@ -40,11 +42,13 @@ class CategoryDeleteApiView(DestroyAPIView):
 # Movies
 
 class MovieListApiView(ListAPIView):
+    permission_classes = [AllowAny]
     serializer_class = MovieSerializer
     queryset = Movie.objects.all()
 
 
 class MovieRetrieveApiView(RetrieveAPIView):
+    permission_classes = [AllowAny]
     serializer_class = MovieDetailSerializer
     queryset = Movie.objects.all()
 
