@@ -9,8 +9,11 @@
 - Routers
 
 *Validación dentro de los serializers.py*
+
 *Métodos HTTP*
+
 *Autententicacion y manejo de rest_framework.authtoken*
+
 *Envío de emails*
 
 
@@ -37,10 +40,12 @@
     # A la altura del archivo manage.py, iniciamos el servidor
     >>> python manage.py runserver
 ```
+------
 
-### Rutas de aplicación
 
-## Movies
+## Rutas de aplicación
+
+### Movies
 - (POST) crear: http://127.0.0.1:8000/api/create-movies/
 ```
     {
@@ -59,13 +64,12 @@
 ```
 - (DELETE) eliminar: http://127.0.0.1:8000/api/destroy-movie/1/
 
-## Categories
+### Categories
 - (POST) crear: http://127.0.0.1:8000/api/create-category/
 ```
     {
         "gender": "Anime"
     }
-
 ```
 
 - (GET) listar: http://127.0.0.1:8000/api/list-category/
@@ -78,7 +82,7 @@
 
 - (DELETE) eliminar: http://127.0.0.1:8000/api/delete-category/1/
 
-## Reviews
+### Reviews
 - (POST)   crear: http://127.0.0.1:8000/api/review/
 ```
     {
@@ -98,7 +102,7 @@
 
 - (DELETE) eliminar: http://127.0.0.1:8000/api/review/1/   
 
-## Users
+### Users
 - (POST) register: http://127.0.0.1:8000/api/acounts/register/
 ```
     {
