@@ -44,6 +44,7 @@
 
 
 ## Rutas de aplicación
+*Aquellas con POST, PUT y DELETE necesitan de autenticación, que se les pase el token en las cabezeras (Authorization Token <Token que envia al hacer login>)*
 
 ### Movies
 - (POST) crear: http://127.0.0.1:8000/api/create-movies/
