@@ -63,5 +63,5 @@ class UserLoginSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         """ Generate user token"""
-        token = Token.objects.create(user=self.context['user'])
+        token, _ = Token.objects.get_or_create(user=self.context['user'])
         return self.context['user'], token.key

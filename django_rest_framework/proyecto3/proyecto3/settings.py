@@ -145,3 +145,12 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     )
 }
+
+
+
+# send emails
+# EMAIL_HOST = 
+# EMAIL_HOST_USER = 
+# EMAIL_HOST_PASSWORD = 
+# EMAIL_PORT = 
+# EMAIL_USE_SSL = 

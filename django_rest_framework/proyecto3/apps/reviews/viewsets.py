@@ -2,16 +2,27 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework import viewsets, status
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 # model
 from apps.reviews.models import Review
-from apps.movies.models import Movie
 
 # serializer
-from apps.reviews.serializers import ReviewSerializer
+from apps.reviews.serializers import ReviewSerializer, ReviewCreateSerializer
 
 
 class ReviewViewSet(viewsets.ViewSet):
+    
+    def get_permissions(self):
+        """
+        Permissions for each action
+        """
+        if self.action=='list' or self.action == "retrieve": 
+            permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
+        
 
     def list(self, request):
         queryset = Review.objects.all()
@@ -24,8 +35,7 @@ class ReviewViewSet(viewsets.ViewSet):
 
     def create(self, request):
         try:
-            # movie = Movie.objects.get(movie_name=request.data['movie_review'])
-            serializer = ReviewSerializer(data=request.data)
+            serializer = ReviewCreateSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(

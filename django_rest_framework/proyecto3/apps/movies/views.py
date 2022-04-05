@@ -12,7 +12,7 @@ from rest_framework.generics import (
 from rest_framework.permissions import AllowAny
 
 from apps.movies.models import Category, Movie
-from apps.movies.serializers import CategorySerializer, MovieSerializer, MovieDetailSerializer
+from apps.movies.serializers import CategorySerializer, MovieSerializer, MovieDetailSerializer, MovieShareSerializer
 
 # Categories
 class CategoryListApiView(ListAPIView):
@@ -51,6 +51,20 @@ class MovieRetrieveApiView(RetrieveAPIView):
     permission_classes = [AllowAny]
     serializer_class = MovieDetailSerializer
     queryset = Movie.objects.all()
+
+    def post(self, request, pk):
+        """ 
+        Send emails
+        """
+        if request.user.is_authenticated:
+            movie = self.queryset.get(id=pk)
+
+            request.data['id'] = pk
+            share_serializer = MovieShareSerializer(request.data)
+            share_serializer.is_valid(raise_exception=True)
+            sh = share_serializer.data
+
+            # Build send email
 
 
 class MovieCreateApiView(CreateAPIView):

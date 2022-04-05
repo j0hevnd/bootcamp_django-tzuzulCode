@@ -38,3 +38,8 @@ class MovieDetailSerializer(serializers.ModelSerializer):
         depth = 1
 
 
+class MovieShareSerializer(serializers.Serializer):
+    id = serializers.IntegerField(required=True)
+    name = serializers.CharField(required=True, max_length=20)
+    email = serializers.EmailField(required=True)
+    comments = serializers.CharField(required=True, max_length=200)
