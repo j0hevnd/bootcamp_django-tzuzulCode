@@ -40,22 +40,82 @@
 
 ### Rutas de aplicación
 
-# Movies
-- 
-- 
-- 
+## Movies
+- (POST) crear: http://127.0.0.1:8000/api/create-movies/
+```
+    {
+        "movie_name": "Raplh",
+        "description": "The destructor"
+    }
+```
+- (GET) listar: http://127.0.0.1:8000/api/list-movies/
+- (GET) detalle: http://127.0.0.1:8000/api/detail-movie/1/
+- (PUT) actualizar: http://127.0.0.1:8000/api/update-movie/1/
+```
+    {
+        "movie_name": "Raplh",
+        "description": "The wrecker"
+    }
+```
+- (DELETE) eliminar: http://127.0.0.1:8000/api/destroy-movie/1/
 
-# Categories
-- 
-- 
-- 
+## Categories
+- (POST) crear: http://127.0.0.1:8000/api/create-category/
+```
+    {
+        "gender": "Anime"
+    }
 
-# Reviews
-- 
-- 
-- 
+```
 
-# Users
-- 
-- 
-- 
+- (GET) listar: http://127.0.0.1:8000/api/list-category/
+- (PUT) actualizar: http://127.0.0.1:8000/api/update-category/1/
+```
+    {
+        "gender": "Cartoon"
+    }
+```
+
+- (DELETE) eliminar: http://127.0.0.1:8000/api/delete-category/1/
+
+## Reviews
+- (POST)   crear: http://127.0.0.1:8000/api/review/
+```
+    {
+        "comment": "It's amazing",
+        "movie_review": "Ralph"
+    }
+```
+
+- (GET)    listar: http://127.0.0.1:8000/api/review/  
+- (GET)    detalle: http://127.0.0.1:8000/api/review/1/
+- (PUT)    actualizar: http://127.0.0.1:8000/api/review/1/
+```
+    {
+        "comment": "It's amazing, well, it's not is too bad."
+    }
+```
+
+- (DELETE) eliminar: http://127.0.0.1:8000/api/review/1/   
+
+## Users
+- (POST) register: http://127.0.0.1:8000/api/acounts/register/
+```
+    {
+        "email": "email@mail.com",
+        "username": "username",
+        "first_name": "first name",
+        "password": "strong password",
+        "confirm_password": "repeat strong password"
+    }
+```
+
+- (POST) login: http://127.0.0.1:8000/api/acounts/login/
+```
+{
+    "username": "username",
+    "password": "strong password"
+}
+```
+
+- (GET)  logout: http://127.0.0.1:8000/api/acounts/logout/
