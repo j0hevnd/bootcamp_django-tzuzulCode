@@ -19,6 +19,10 @@ class Movie(models.Model):
     category = models.ManyToManyField(Category)
     public = models.BooleanField('Public?', default=True)
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('app_movies:detail_movies', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name = "Movie"
         verbose_name_plural = "Movies"
