@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    {% for message in messages  %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    <div class="card">
+        {% for product in page_obj %}
+            <div class="card-product">
+                {% if product.image_product %}
+                    <img src="{{ product.image_product.url }}" alt="">
+                {% else %}
+                    <img src="{% static 'img/img.jpg' %}" alt="">
+                {% endif %}
+                
+                <h2>
+                    <a href="{% url 'product:detail_product' product.id %}">{{ product.name_product }}</a>
+                </h2>
+                <p>Quantity: {{ product.stock }}</p>
+                <p>Price: ${{ product.price }}</p>
+                <p>Maker: {{ product.Manufacturer }}</p>
+                <p>Kind product: {{ product.product_type }}</p>
+                <a class="btn primary" href="{% url 'product:edit_product' product.id %}">Editar</a>
+                <a class="btn danger" href="{% url 'product:delete_product' product.id %}">Eliminar</a>
+
+            </div>
+        {% empty %}
+            <p class="description">There are no registered products</p>
+        {% endfor %}
+    </div>
+
+    {% include 'pagination.html' with page_obj=page_obj %}
+
+    <br><hr><br>
+{% endblock content %}

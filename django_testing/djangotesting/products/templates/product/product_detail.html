@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_pag %}Detail product{% endblock title_pag %}
+
+{% block content %}
+    <div class="card-product detail">
+        {% if object %}
+            <h2 class="color-blue">{{ object.name_product }}</h2>
+            <p>Stock Avaliable: {{ object.stock }}</p>
+            <p>Price: ${{ object.price }}</p>
+            <p>Maker: {{ object.Manufacturer }}</p>
+            <p>Kind product: {{ object.product_type }}</p>
+            <p>Due date: {{ object.due_date|date:'M-d-Y' }}</p>
+            <h3>Add car</h3>
+         {% else %} {% comment %} para el test {% endcomment %}
+            <p>No product found</p>
+        {% endif %}
+        {% comment %} <form method="POST" action="{% url 'sale:add_car' %}">
+            <input type="hidden" name="id_product" value="{{ object.id }}">
+            {{form.as_p}}
+            {% csrf_token %}
+            <button class="btn success" type="submit">Add car</button>
+        </form> {% endcomment %}
+    </div>
+    {{saludo}}
+    <a class="btn primary" href="{% url 'product:index' %}">Come back</a>
+
+    
+{% endblock content %}

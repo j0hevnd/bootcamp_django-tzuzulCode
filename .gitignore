@@ -93,6 +93,7 @@ celerybeat-schedule
 .venv
 dc_venv/
 drf_venv/
+venv_testing/
 env/
 venv/
 */*/*/venv/

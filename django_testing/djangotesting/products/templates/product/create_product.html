@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method='POST' enctype="multipart/form-data">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <button class="btn success" type="submit">Add product</button>
+</form>
+<br>
+<a href="{% url 'product:index' %}">Come back</a>
+{% endblock content %}
