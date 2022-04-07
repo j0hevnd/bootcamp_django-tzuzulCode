@@ -42,6 +42,9 @@ def create_product(name, stock, price, manufacturer, product_type, due_date, pub
 class UserLoginTestCase(TestCase):
     
     def test_login_user(self):
+        """
+        Validate that a user log-in successful
+        """
         User.objects.create_user(username='testuser1', password='12345')
 
         self.client.login(username='testuser1', password='12345')
@@ -54,6 +57,9 @@ class UserLoginTestCase(TestCase):
 class ProductTestCase(TestCase):
 
     def setUp(self):
+        """
+        Create a user, login of user and create data in the database
+        """
         User.objects.create_user(username='testuser1', password='12345')
         self.client.login(username='testuser1', password='12345')
 
@@ -65,6 +71,9 @@ class ProductTestCase(TestCase):
 
 
     def test_product_not_is_displayed_is_not_login_user(self):
+        """
+        Validates that the URL is protected and redirects to the login page
+        """
         self.client.logout()
 
         response = self.client.get(reverse("product:index"), follow=True)
