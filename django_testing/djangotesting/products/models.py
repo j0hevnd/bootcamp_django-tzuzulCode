@@ -44,7 +44,8 @@ class Product(models.Model):
     
     class Meta:
         verbose_name = 'Product'
-        verbose_name_plural = 'Products'    
+        verbose_name_plural = 'Products'
+        ordering = ['id']
 
     @admin.display( 
         boolean=True,

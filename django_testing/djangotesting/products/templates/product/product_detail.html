@@ -13,17 +13,10 @@
             <p>Kind product: {{ object.product_type }}</p>
             <p>Due date: {{ object.due_date|date:'M-d-Y' }}</p>
             <h3>Add car</h3>
-         {% else %} {% comment %} para el test {% endcomment %}
+         {% else %}
             <p>No product found</p>
         {% endif %}
-        {% comment %} <form method="POST" action="{% url 'sale:add_car' %}">
-            <input type="hidden" name="id_product" value="{{ object.id }}">
-            {{form.as_p}}
-            {% csrf_token %}
-            <button class="btn success" type="submit">Add car</button>
-        </form> {% endcomment %}
     </div>
-    {{saludo}}
     <a class="btn primary" href="{% url 'product:index' %}">Come back</a>
 
     

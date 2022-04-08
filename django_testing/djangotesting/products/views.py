@@ -21,7 +21,7 @@ class ProductsListView(LoginRequiredMixin, ListView):
     """
     template_name = "product/list.html"
     context_object_name = 'products'
-    paginate_by = 8        
+    paginate_by = 8 # page_obj   
 
     def get_queryset(self):
         """
@@ -30,7 +30,14 @@ class ProductsListView(LoginRequiredMixin, ListView):
 
         return: Resultado de una consulta a base de datos.
         """
-        return Product.objects.all()
+        products = Product.objects.filter(
+            public=True,
+            stock__gt=0
+        )
+
+        products = list(filter(lambda product: not product.product_expired(), products))
+        
+        return products
 
 
 class ProductDetailView(LoginRequiredMixin, DetailView):
@@ -39,7 +46,13 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
     """
     model = Product
     template_name = "product/product_detail.html"
-    queryset = Product.objects.all()
+
+    def get_object(self):
+        queryset = self.get_queryset().filter(public=True, stock__gt=0)
+        try:
+            return queryset.get()
+        except queryset.model.DoesNotExist:
+            return None
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):

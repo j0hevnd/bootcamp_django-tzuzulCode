@@ -9,14 +9,14 @@
         </p>
     {% else %}
         <p>Please, use the following form to log-in:</p>
+        {% endif %}
+        <div class="login-form">
+            <form action="{% url 'product:login' %}" method="post">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}" />
+                <p><input class="btn success" type="submit" value="Log-in"></p>
+            </form>
+        </div>
         <p>Are you no register?, <a href="{% url 'product:register' %}">Create an account</a>.</p>
-    {% endif %}
-    <div class="login-form">
-        <form action="{% url 'product:login' %}" method="post">
-            {{ form.as_p }}
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{{ next }}" />
-            <p><input class="btn success" type="submit" value="Log-in"></p>
-        </form>
-    </div>
 {% endblock %}
