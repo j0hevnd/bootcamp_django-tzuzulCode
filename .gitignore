@@ -7,8 +7,8 @@ __pycache__/
 */*/__pycache__/
 */__pycache__/
 
-# app prueba
-prueba/
+#db
+data/
 
 # C extensions
 *.so

@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: db
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=bootcamp
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  app:
+    container_name: django
+    build: .
+    volumes:
+      - .:/src
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_DB=bootcamp
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgr
+    depends_on:
+      - db
+
