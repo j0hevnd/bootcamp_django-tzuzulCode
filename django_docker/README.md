@@ -1,6 +1,6 @@
-# Introduccióna Docker con Django
+# Introducción a Docker con Django
 
-- Conceptos básicos de como funciona un Dockerfile y docker-compose+, crear imágenes basados en este, correr contenedores, adjuntar volumenes para persistir en los datos...
+- Conceptos básicos de como funciona un Dockerfile y docker-compose, crear imágenes basados en este, correr contenedores, adjuntar volumenes para persistir en los datos...
 
 #### Para probar la app ejecutar el comando
 
